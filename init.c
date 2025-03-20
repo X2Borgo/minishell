@@ -6,7 +6,7 @@
 /*   By: alborghi <alborghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 15:29:44 by alborghi          #+#    #+#             */
-/*   Updated: 2025/03/13 16:05:16 by alborghi         ###   ########.fr       */
+/*   Updated: 2025/03/20 18:04:13 by alborghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,5 +63,10 @@ int	init_data(t_data *data, char **env)
 	data->stdi = dup(0);
 	data->stdo = dup(1);
 	data->prompt = dup(1);
+	data->history = ft_strjoin(data->home, "/.mini_history");
+	if (open(data->history, O_CREAT | O_RDWR, 0666) == -1)
+		return (1);
+	// if (open("tmp", O_CREAT | O_RDWR, 0666) == -1)
+	// 	return (1);
 	return (0);
 }

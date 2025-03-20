@@ -6,7 +6,7 @@
 /*   By: alborghi <alborghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 18:07:37 by alborghi          #+#    #+#             */
-/*   Updated: 2025/03/19 17:34:23 by alborghi         ###   ########.fr       */
+/*   Updated: 2025/03/20 18:04:22 by alborghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # include <errno.h>
 # include <termios.h>
 
-# define HISTORY "/nfs/homes/alborghi/miei_file/42_core/milestone_3/minishell/.history"
+# define HISTORY "~/.mini_history"
 
 # define ARR_UP 65364
 # define ARR_DOWN 65362
@@ -84,6 +84,7 @@ typedef struct s_data
 	char			*find;
 	char			*home;
 	char			*pwd;
+	char			*history;
 	t_int_list		*fds;
 	t_int_list		*pids;
 	int				status;

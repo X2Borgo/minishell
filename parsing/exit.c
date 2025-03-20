@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fde-sant <fde-sant@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alborghi <alborghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 17:04:44 by fre007            #+#    #+#             */
-/*   Updated: 2025/03/20 17:43:56 by fde-sant         ###   ########.fr       */
+/*   Updated: 2025/03/20 18:04:42 by alborghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ void	ft_exit(t_data *data, int sig)
 	free_cmds(data->head);
 	free_env(data->env);
 	free(data->home);
+	free(data->history);
 	free(data->pwd);
 	close(data->stdi);
 	close(data->stdo);
