@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alborghi <alborghi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fde-sant <fde-sant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 17:04:44 by fre007            #+#    #+#             */
-/*   Updated: 2025/03/20 17:19:06 by alborghi         ###   ########.fr       */
+/*   Updated: 2025/03/20 17:43:56 by fde-sant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ void	free_cmds(t_cmd *cmds)
 		free(tmp->file_a);
 		ft_free_mat_char(tmp->file_i);
 		ft_free_mat_char(tmp->delimiter);
-		free(tmp->here_file);
+		if (tmp->here_file != NULL)
+			free(tmp->here_file);
 		free(tmp);
 	}
 }
