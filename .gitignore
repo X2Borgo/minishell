@@ -8,3 +8,5 @@ test*
 
 !.gitignore
 !appunti.txt
+!.history
+!tmp/.heredoc_0
