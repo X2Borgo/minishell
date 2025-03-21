@@ -6,7 +6,7 @@
 /*   By: alborghi <alborghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 10:36:02 by alborghi          #+#    #+#             */
-/*   Updated: 2025/03/17 17:36:48 by alborghi         ###   ########.fr       */
+/*   Updated: 2025/03/21 10:33:48 by alborghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,12 @@ int	convert_signal(char *str)
 
 int	get_signal(int *sig, char **args, t_data *data)
 {
+	if (data->head->next == NULL)
+		ft_printf("exit\n");
 	if (args[0] == NULL)
-		return (*sig = 0, ft_printf("exit\n"), 0);
+		return (*sig = 0, 0);
 	if (!is_numeric(args[0]))
 	{
-		ft_printf("exit\n");
 		data->status = 2;
 		ft_printe("minishell: exit: %s: numeric argument required\n", args[0]);
 		return (0);
@@ -71,13 +72,11 @@ int	get_signal(int *sig, char **args, t_data *data)
 	*sig = convert_signal(args[0]);
 	if (args[1] != NULL)
 	{
-		ft_printf("exit\n");
 		data->status = 1;
 		ft_printe("minishell: exit: too many arguments\n");
 		return (1);
 	}
 	data->status = *sig;
-	ft_printf("exit\n");
 	return (0);
 }
 

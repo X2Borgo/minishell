@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fde-sant <fde-sant@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alborghi <alborghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 18:06:42 by alborghi          #+#    #+#             */
-/*   Updated: 2025/03/20 17:10:48 by fde-sant         ###   ########.fr       */
+/*   Updated: 2025/03/21 14:58:23 by alborghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,57 +14,74 @@
 
 int	g_signal;
 
-int	check_is_folder(char *file)
+void	ft_readline(t_data *data)
 {
-	struct stat	buf;
+	char	*line;
+	char	*history;
 
-	if (!file)
-		return (0);
-	if (stat(file, &buf) == 0)
+	line = readline(MINI);
+	if (line == NULL)
 	{
-		if (S_ISDIR(buf.st_mode))
-		{
-			ft_printe("minishell: %s: is a directory\n", file);
-			return (1);
-		}
+		ft_printf("exit\n");
+		ft_exit(data, data->out);
 	}
-	return (0);
+	history = ft_strtrim(line, "\n ");
+	add_history(history);
+	write_history(data->history);
+	free(history);
+	data->cmds = parsing(line, data);
+	free(line);
 }
 
-int	check_files(t_cmd *cmds)
+void	ft_waitpids(t_data *data)
 {
-	int		i;
+	int	status;
 
-	while (cmds)
+	if (data->pids)
 	{
-		if (check_is_folder(cmds->file_a) == 1
-			|| check_is_folder(cmds->file_o) == 1)
+		status = 0;
+		while (data->pids && waitpid(data->pids->n, &status, 0) >= 0)
 		{
-			return (1);
+			if (WIFSIGNALED(status) && WTERMSIG(status) == SIGQUIT)
+			{
+				ft_printe("Quit (core dumped)\n");
+				g_signal = 0;
+				break ;
+			}
+			if (WIFEXITED(status) && WEXITSTATUS(status) != 0)
+			{
+				data->out = WEXITSTATUS(status);
+			}
+			data->pids = remove_node(data->pids);
 		}
-		i = 0;
-		while (cmds->file_i && cmds->file_i[i])
-		{
-			if (check_is_folder(cmds->file_i[i]) == 1)
-				return (1);
-			i++;
-		}
-		cmds = cmds->next;
+		if (WIFSIGNALED(status))
+			data->out = (WTERMSIG(status) + 128);
+		if (WIFEXITED(status))
+			data->out = (WEXITSTATUS(status));
 	}
-	return (0);
+}
+
+void	reset_and_free(t_data *data)
+{
+	init_signals();
+	reset_std(data);
+	free_cmds(data->head);
+	close_fds(data->fds);
+	data->fds = NULL;
+	data->head = NULL;
+	data->cmds = NULL;
 }
 
 // ctrl + d -> EOF (get_next_line returns NULL) -> exit
 int	main(int ac, char **av, char **env)
 {
 	char	*line;
-	char	*history;
 	t_data	data;
 
 	(void)ac;
 	(void)av;
 	if (init_data(&data, env) == 1)
-		return (1);
+		ft_exit(&data, 1);
 	using_history();
 	init_signals();
 	line = NULL;
@@ -72,72 +89,14 @@ int	main(int ac, char **av, char **env)
 	{
 		data.status = 0;
 		g_signal = 0;
-		free(line);
-		line = readline(MINI);
-		if (line == NULL)
-		{
-			ft_printf("exit\n");
-			ft_exit(&data, data.out);
-		}
-		history = ft_strtrim(line, "\n ");
-		add_history(history);
-		write_history(HISTORY);
-		free(history);
-		data.cmds = parsing(line, &data);
-		if (data.cmds == NULL)
-		{
-			data.status = 0;
+		ft_readline(&data);
+		if (parsing_checks(&data) == 1)
 			continue ;
-		}
-		// ft_printf("-------------------------------------------\n");
-		// print_cmd(data.cmds);
-		// print_data(&data);
-		// ft_printf("status: %d\n", data.status);
-		// ft_printf("-------------------------------------------\n");
-		if (data.status != 0)
-		{
-			data.status = 0;
-			free_cmds(data.cmds);
-			continue ;
-		}
-		if (check_files(data.cmds) == 1)
-		{
-			free_cmds(data.cmds);
-			data.status = 1;
-			continue ;
-		}
 		do_heredoc(&data);
 		data.head = data.cmds;
 		exec_cmd(&data);
-		if (data.pids)
-		{
-			int status = 0;
-			while (data.pids && waitpid(data.pids->n, &status, 0) >= 0)
-			{
-				if (WIFSIGNALED(status) && WTERMSIG(status) == SIGQUIT)
-				{
-					ft_printe("Quit (core dumped)\n");
-					g_signal = 0;
-					break;
-				}
-				if (WIFEXITED(status) && WEXITSTATUS(status) != 0)
-				{
-					data.out = WEXITSTATUS(status);
-				}
-				data.pids = remove_node(data.pids);
-			}
-			if (WIFSIGNALED(status))
-				data.out = (WTERMSIG(status) + 128);
-			if (WIFEXITED(status))
-				data.out = (WEXITSTATUS(status));
-		}
-		init_signals();
-		reset_std(&data);
-		free_cmds(data.head);
-		close_fds(data.fds);
-		data.fds = NULL;
-		data.head = NULL;
-		data.cmds = NULL;
+		ft_waitpids(&data);
+		reset_and_free(&data);
 	}
 	ft_exit(&data, data.out);
 }

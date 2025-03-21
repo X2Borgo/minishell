@@ -6,7 +6,7 @@
 /*   By: alborghi <alborghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 14:57:54 by alborghi          #+#    #+#             */
-/*   Updated: 2025/03/19 17:02:48 by alborghi         ###   ########.fr       */
+/*   Updated: 2025/03/21 15:28:12 by alborghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,19 @@ char	*remove_quote(char *line)
 	return (ret);
 }
 
+int	line_check(char *line, int *j, char **delimiter, int *i)
+{
+	if (!line || !line[0])
+	{
+		ft_printe("minishell: warning: here-document at line %d\
+delimited by end-of-file (wanted `%s')\n", *j, delimiter[*i]);
+		*j = 1;
+		(*i)++;
+		return (1);
+	}
+	return (0);
+}
+
 int	skip_useless(char **delimiter)
 {
 	char	*line;
@@ -51,16 +64,9 @@ int	skip_useless(char **delimiter)
 	{
 		line = readline("> ");
 		if (g_signal == 2)
-		{
 			return (-1);
-		}
-		if (!line || !line[0])
-		{
-			ft_printe("minishell: warning: here-document at line %d delimited by end-of-file (wanted `%s')\n", j, delimiter[i]);
-			j = 1;
-			i++;
+		if (line_check(line, &j, delimiter, &i))
 			continue ;
-		}
 		if (ft_strncmp(line, delimiter[i], ft_strlen(delimiter[i]) + 1) == 0)
 		{
 			i++;
@@ -83,7 +89,8 @@ void	read_last(char *delimiter, int fd, t_data *data, int q)
 		line = readline("> ");
 		if (!line)
 		{
-			ft_printe("minishell: warning: here-document at line %d delimited by end-of-file (wanted `%s')\n", j, delimiter);
+			ft_printe("minishell: warning: here-document at line %d\
+delimited by end-of-file (wanted `%s')\n", j, delimiter);
 			break ;
 		}
 		if (ft_strncmp(line, delimiter, ft_strlen(delimiter) + 1) == 0)
@@ -91,7 +98,6 @@ void	read_last(char *delimiter, int fd, t_data *data, int q)
 			free(line);
 			break ;
 		}
-		//TODO: add dollar managment
 		if (!q)
 			line = dollar_manager_stupid(line, data);
 		write(fd, line, ft_strlen(line));
@@ -120,19 +126,12 @@ void	handle_delimiter(char **delimiter, int doi, t_data *data)
 	signal(SIGINT, sig_here);
 	i = skip_useless(delimiter);
 	if (i == -1)
-	{
-		signal(SIGINT, new_prompt);
-		return ;
-	}
+		return (signal(SIGINT, new_prompt), (void)0);
 	pipe(fd);
 	read_last(delimiter[i], fd[1], data, q);
 	close(fd[1]);
 	if (doi == 2 && data->cmds && data->cmds->cmd && dup2(fd[0], 0) == -1)
-	{
-		close(fd[0]);
-		signal(SIGINT, new_prompt);
-		return ;
-	}
+		return (close(fd[0]), signal(SIGINT, new_prompt), (void)0);
 	close(fd[0]);
 	signal(SIGINT, new_prompt);
 }

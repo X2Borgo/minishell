@@ -6,7 +6,7 @@
 /*   By: fde-sant <fde-sant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 21:34:49 by fre007            #+#    #+#             */
-/*   Updated: 2025/03/21 16:11:38 by fde-sant         ###   ########.fr       */
+/*   Updated: 2025/03/21 16:14:19 by fde-sant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 char	*find_next_heredoc(char *line, t_data *data)
 {
 	int		i;
-	int 	j;
+	int		j;
 	char	*str;
 
 	i = 0;
@@ -27,10 +27,10 @@ char	*find_next_heredoc(char *line, t_data *data)
 	while (ft_strchr("<> ", line[i]) == NULL || quote_checker(line, i))
 		i++;
 	str = dup_till_n(&line[j], i - j, data);
-	return(str);
+	return (str);
 }
 
-void	find_heredoc_only(char *line, t_data * data, char *limit)
+void	find_heredoc_only(char *line, t_data *data, char *limit)
 {
 	char	**arr;
 	char	*str;
@@ -41,9 +41,9 @@ void	find_heredoc_only(char *line, t_data * data, char *limit)
 	str = NULL;
 	while (line[++i] && (limit != &line[i] || limit == NULL))
 	{
-		if (i >= 1 && line[i - 1] == '<' && line[i] == '<'
-			&& (i == 1 || (line[i - 2] != '<' && line[i - 2] != '>'))
-			&& line[i + 1] != '<'&& line[i + 1] != '>')
+		if (i >= 1 && line[i - 1] == '<' && line[i] == '<' && (i == 1
+				|| (line[i - 2] != '<' && line[i - 2] != '>'))
+			&& line[i + 1] != '<' && line[i + 1] != '>')
 		{
 			str = find_next_heredoc(&line[i + 1], data);
 			arr = ft_append_line(arr, str);
