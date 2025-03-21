@@ -6,7 +6,7 @@
 /*   By: fde-sant <fde-sant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 16:57:28 by fre007            #+#    #+#             */
-/*   Updated: 2025/03/20 18:22:03 by fde-sant         ###   ########.fr       */
+/*   Updated: 2025/03/21 16:30:25 by fde-sant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	print_pipe_error(char *line, int i, t_data *data)
 	l = i + 1;
 	while (line[l] && line[l] == ' ')
 		l++;
-	if (j == -1 || line[l])
+	if (j == -1 || line[l] == '|')
 	{
 		find_heredoc_only(line, data, &line[j]);
 		printf("minishell: syntax error near unexpected token `|'\n");
