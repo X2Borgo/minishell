@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   inout.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fre007 <fre007@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fde-sant <fde-sant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 20:21:59 by fre007            #+#    #+#             */
-/*   Updated: 2025/03/18 13:24:04 by fre007           ###   ########.fr       */
+/*   Updated: 2025/03/21 16:15:24 by fde-sant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,19 +126,6 @@ void	check_file(char *find, t_words **words, t_cmd *cmds, t_data *data)
 		cmds->doi = 1;
 		cmds->file_i = ft_append_line(cmds->file_i, finded);
 	}
-}
-
-int	head_protector(t_words *words, t_words **h, char *find)
-{
-	if (ft_strstr((*h)->word, find))
-		return (1);
-	if (ft_strstr(words->word, find))
-	{
-		while ((*h) != words && (*h)->next != NULL && (*h)->next != words)
-			(*h) = (*h)->next;
-		return (2);
-	}
-	return (0);
 }
 
 //verifica tutte le informazioni per i simboli: <, <<, >>, >

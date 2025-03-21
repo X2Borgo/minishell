@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   inout_support.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fre007 <fre007@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fde-sant <fde-sant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 09:52:47 by fre007            #+#    #+#             */
-/*   Updated: 2025/03/18 12:17:46 by fre007           ###   ########.fr       */
+/*   Updated: 2025/03/21 16:15:33 by fde-sant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,4 +78,17 @@ char	*remove_finded(char *word, char *finded, t_data *data)
 		new_word[i] = word[i];
 	}
 	return (free (word), new_word);
+}
+
+int	head_protector(t_words *words, t_words **h, char *find)
+{
+	if (ft_strstr((*h)->word, find))
+		return (1);
+	if (ft_strstr(words->word, find))
+	{
+		while ((*h) != words && (*h)->next != NULL && (*h)->next != words)
+			(*h) = (*h)->next;
+		return (2);
+	}
+	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alborghi <alborghi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fde-sant <fde-sant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 18:07:37 by alborghi          #+#    #+#             */
-/*   Updated: 2025/03/21 15:58:52 by alborghi         ###   ########.fr       */
+/*   Updated: 2025/03/21 16:16:36 by fde-sant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,7 +183,7 @@ int						quote_checker(char *line, int i);
 char					*dup_till_n(char *start, int n, t_data *data);
 char					*remove_char(char *word, int i, t_data *data);
 void					set_cmd(t_cmd *cmds, t_words **words);
-//------------------------------------------------------------
+//==========================================================
 // dollar_stupid.c 4
 
 char					*status_report(char *word, int *i, t_data *data);
@@ -192,7 +192,7 @@ char					*copy_in_str_stupid(char *word, int *i, int j,
 char					*dollar_converter_stupid(char *word, int *i,
 							t_data *data);
 char					*dollar_manager_stupid(char *word, t_data *data);
-//------------------------------------------------------------
+//==========================================================
 // dollar.c 5
 
 char					*copy_in_str(char *word, int *i, int j, t_data *data);
@@ -202,13 +202,13 @@ t_words					*dollar_converter(char *word, int *i, t_data *data,
 char					*dollar_remover(char *word, int *i, int check,
 							t_data *data);
 t_words					*dollar_manager(t_data *data, t_words *words);
-//------------------------------------------------------------
+//==========================================================
 // error_support.c 3
 
 char					*find_next_heredoc(char *line, t_data *data);
 void					find_heredoc_only(char *line, t_data *data,
 							char *limit);
-//------------------------------------------------------------
+//==========================================================
 // error.c 5
 
 void					support_print(char *line, char *c, int witch,
@@ -219,7 +219,7 @@ void					print_minmag_error(char *line, int *i, char c,
 							t_data *data);
 void					print_pipe_error(char *line, int i, t_data *data);
 int						check_syntax_error(char *line, t_data *data);
-//------------------------------------------------------------
+//==========================================================
 // exit.c 5
 
 void					free_words_word(t_words *words);
@@ -227,11 +227,11 @@ void					free_words(t_words *words);
 void					free_cmds(t_cmd *cmds);
 void					free_env(t_env *env);
 void					ft_exit(t_data *data, int sig);
-//------------------------------------------------------------
+//==========================================================
 // extra_free.c 1
 
 void					free_words_only_pointers(t_words *words);
-//------------------------------------------------------------
+//==========================================================
 // inout_remover.c 4
 
 char					*clear_2_node(t_words **tmp, t_words **first,
@@ -242,13 +242,14 @@ char					*clear_this_node(t_words **tmp, char *finded,
 							t_words **first, t_data *data);
 char					*remove_last_part(t_words **tmp, char *finded,
 							char *find, t_data *data);
-//------------------------------------------------------------
+//==========================================================
 // inout_support.c 3
 
 char					*ft_strstr(char *big, char *little);
 t_words					*remove_node_words(t_words *words, t_words *first);
 char					*remove_finded(char *word, char *finded, t_data *data);
-//------------------------------------------------------------
+int						head_protector(t_words *words, t_words **h, char *find);
+//==========================================================
 // inout.c 5
 
 char					*find_after_word(char *find, t_words **tmp,
@@ -259,7 +260,7 @@ void					check_file(char *find, t_words **words, t_cmd *cmds,
 							t_data *data);
 t_words					*inout_manager(t_words *words, t_data *data,
 							t_cmd *cmds, t_words **h);
-//------------------------------------------------------------
+//==========================================================
 // parsing.c 5
 
 int						count_args(t_words **words);
@@ -269,19 +270,19 @@ void					command_slicer(t_cmd *cmds, t_words **words,
 t_cmd					*new_command(t_cmd *cmds, t_words **words, t_data *data,
 							t_words **h);
 t_cmd					*parsing(char *line, t_data *data);
-//------------------------------------------------------------
+//==========================================================
 // print.c 3
 
 void					print_word(t_words *words);
 void					print_i_delimiter(t_cmd *cmds);
 void					print_cmd(t_cmd *cmds);
 void					print_data(t_data *data);
-//------------------------------------------------------------
+//==========================================================
 // word.c 4
 
 t_words					*pipe_manager(int *i, t_data *data, t_words *words);
 char					*next_word(char *line, int *i, t_data *data);
 t_words					*new_word(t_words *words, char *str, t_data *data);
 t_words					*word_slicer(char *line, t_data *data);
-//------------------------------------------------------------
+//==========================================================
 #endif
