@@ -6,7 +6,7 @@
 /*   By: fde-sant <fde-sant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 17:00:58 by fde-sant          #+#    #+#             */
-/*   Updated: 2025/03/21 18:14:40 by fde-sant         ###   ########.fr       */
+/*   Updated: 2025/03/21 18:33:54 by fde-sant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,3 @@ t_words	*multi_args_case(t_data *data, t_words *words, int *j)
 		*j = ft_strlen_int(arr[i - 1]) - pos;
 	return (free (arr), words);
 }
-
-//ciao ""| "" |"" | prova
