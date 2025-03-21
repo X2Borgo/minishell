@@ -6,7 +6,7 @@
 /*   By: alborghi <alborghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 16:02:07 by alborghi          #+#    #+#             */
-/*   Updated: 2025/03/21 16:06:23 by alborghi         ###   ########.fr       */
+/*   Updated: 2025/03/21 16:19:39 by alborghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ void	do_pipe(t_data *data)
 
 void	exec_cmd(t_data *data)
 {
-	int	fd[2];
 	int	pid;
 
 	if (check_pipe(data->cmds))

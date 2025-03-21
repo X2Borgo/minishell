@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fde-sant <fde-sant@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alborghi <alborghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 18:07:37 by alborghi          #+#    #+#             */
-/*   Updated: 2025/03/21 16:16:36 by fde-sant         ###   ########.fr       */
+/*   Updated: 2025/03/21 16:19:34 by alborghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,9 @@ void					sig_here(int signum);
 int						is_builtin(char *cmd);
 int						handle_files(t_cmd *cmd, t_data *data);
 int						ft_put_env(t_env *env, int is_env);
+int						call_function(t_data *data);
+
+// exec_cmd.c
 void					exec_cmd(t_data *data);
 
 // exec_helper.c

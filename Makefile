@@ -6,6 +6,7 @@ main_checks.c \
 init.c \
 signal.c \
 exec.c \
+exec_cmd.c \
 exec_helper.c \
 export.c \
 export_helper.c \
