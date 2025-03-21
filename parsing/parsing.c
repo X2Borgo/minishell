@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fde-sant <fde-sant@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alborghi <alborghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 09:57:09 by fre007            #+#    #+#             */
-/*   Updated: 2025/03/20 17:45:36 by fde-sant         ###   ########.fr       */
+/*   Updated: 2025/03/21 11:16:48 by alborghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,19 +104,14 @@ t_cmd	*parsing(char *line, t_data *data)
 	cmds = calloc_cmds(data);
 	words = word_slicer(line, data);
 	head = words;
-	//print_word(words);
 	command_slicer(cmds, &words, data, &head);
 	first = cmds;
 	while (!data->status && words != NULL)
 	{
-		//print_word(head);
 		if (words->pipe == 1 && words->took == 1)
 			words = words->next;
 		else
 			cmds = new_command(cmds, &words, data, &head);
-		//print_cmd(first);
-		//print_word(words);
 	}
-	//print_word(head);
 	return (free_words_only_pointers(head), first);
 }

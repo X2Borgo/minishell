@@ -6,11 +6,51 @@
 /*   By: alborghi <alborghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 15:22:52 by alborghi          #+#    #+#             */
-/*   Updated: 2025/03/19 12:46:07 by alborghi         ###   ########.fr       */
+/*   Updated: 2025/03/21 10:57:37 by alborghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*
+while (tmp)
+{
+	if (strncmp(key, tmp->var, strlen(key)) == 0
+		&& (tmp->var[ft_strlen(key)] == '='
+			|| tmp->var[ft_strlen(key)] == '\0'))
+	{
+		if (last == NULL)
+			data->env = tmp->next;
+		else
+			last->next = tmp->next;
+		free(tmp->var);
+		free(tmp);
+		break ;
+	}
+	last = tmp;
+	tmp = tmp->next;
+}
+*/
+void	do_cycle_unset(t_env *tmp, t_env *last, char *key, t_data *data)
+{
+	while (tmp)
+	{
+		if (strncmp(key, tmp->var, strlen(key)) == 0
+			&& (tmp->var[ft_strlen(key)] == '='
+				|| tmp->var[ft_strlen(key)] == '\0'))
+		{
+			if (last == NULL)
+				data->env = tmp->next;
+			else
+				last->next = tmp->next;
+			free(tmp->var);
+			free(tmp);
+			break ;
+		}
+		last = tmp;
+		tmp = tmp->next;
+	}
+}
 
 int	exec_unset(t_data *data)
 {
@@ -32,23 +72,7 @@ int	exec_unset(t_data *data)
 		}
 		tmp = data->env;
 		last = NULL;
-		while (tmp)
-		{
-			if (strncmp(key, tmp->var, strlen(key)) == 0
-				&& (tmp->var[ft_strlen(key)] == '='
-					|| tmp->var[ft_strlen(key)] == '\0'))
-			{
-				if (last == NULL)
-					data->env = tmp->next;
-				else
-					last->next = tmp->next;
-				free(tmp->var);
-				free(tmp);
-				break ;
-			}
-			last = tmp;
-			tmp = tmp->next;
-		}
+		do_cycle_unset(tmp, last, key, data);
 		i++;
 	}
 	return (0);

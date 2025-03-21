@@ -6,7 +6,7 @@
 /*   By: alborghi <alborghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 10:46:54 by alborghi          #+#    #+#             */
-/*   Updated: 2025/03/13 14:21:34 by alborghi         ###   ########.fr       */
+/*   Updated: 2025/03/21 12:06:24 by alborghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	handle_echo_flags(char **args)
 			while (args[i][++j] && args[i][j] == 'n')
 				continue ;
 			if (args[i][j - 1] == 'n' && args[i][j] != '\0')
-				break;
+				break ;
 			f++;
 		}
 		else

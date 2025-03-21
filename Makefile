@@ -2,17 +2,23 @@ NAME = minishell
 
 SRCS = \
 main.c \
+main_checks.c \
 init.c \
 signal.c \
 exec.c \
+exec_helper.c \
 export.c \
+export_helper.c \
 cd.c \
+env_functions.c \
 echo.c \
 unset.c \
 execve.c \
+execve_helper.c \
 ft_exit.c \
 heredoc.c \
 do_heredoc.c \
+save_heredoc.c \
 int_list.c \
 parsing/char_manager.c \
 parsing/dollar_stupid.c \
@@ -36,12 +42,15 @@ all: $(NAME)
 
 $(NAME): $(SRCS)
 	make -C my_libft
+	if [ ! -d tmp ]; then mkdir tmp; fi
 	$(CC) $(CFLAGS) -o $(NAME) $(SRCS) $(LIBFTA) -lreadline
 
 clean: libft_clean
 
 fclean: clean libft_fclean
 	rm -f $(NAME)
+	rm -f ~/.mini_history
+	rm -fr tmp
 
 re: fclean all
 
