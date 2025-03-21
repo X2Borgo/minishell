@@ -6,7 +6,7 @@
 /*   By: fde-sant <fde-sant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 21:34:49 by fre007            #+#    #+#             */
-/*   Updated: 2025/03/19 13:47:01 by fde-sant         ###   ########.fr       */
+/*   Updated: 2025/03/21 16:11:38 by fde-sant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,9 @@ void	find_heredoc_only(char *line, t_data * data, char *limit)
 	str = NULL;
 	while (line[++i] && (limit != &line[i] || limit == NULL))
 	{
-		if (i > 1 && line[i - 1] == '<' && line[i] == '<' && line[i - 2] != '<'
-			&& line[i - 2] != '>' && line[i + 1] != '<'&& line[i + 1] != '>')
+		if (i >= 1 && line[i - 1] == '<' && line[i] == '<'
+			&& (i == 1 || (line[i - 2] != '<' && line[i - 2] != '>'))
+			&& line[i + 1] != '<'&& line[i + 1] != '>')
 		{
 			str = find_next_heredoc(&line[i + 1], data);
 			arr = ft_append_line(arr, str);
