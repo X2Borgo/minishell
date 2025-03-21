@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollar.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fre007 <fre007@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fde-sant <fde-sant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 09:06:16 by fre007            #+#    #+#             */
-/*   Updated: 2025/03/13 08:28:32 by fre007           ###   ########.fr       */
+/*   Updated: 2025/03/21 17:04:56 by fde-sant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,35 +37,6 @@ char	*copy_in_str(char *word, int *i, int j, t_data *data)
 	while (word[y])
 		new_word[l++] = word[y++];
 	return (free (word), free (str), new_word);
-}
-
-//gestisce il caso in cui l'espanzione della variabile deve creare più argomenti
-t_words	*multi_args_case(t_data *data, t_words *words, int *j)
-{
-	t_words	*next;
-	char	**arr;
-	char	*temp;
-	int		pos;
-	int		i;
-
-	next = words->next;
-	pos = ft_strlen_int(words->word) - *j;
-	temp = dup_till_n(words->word, *j, data);
-	arr = ft_split(temp, ' ');
-	free(temp);
-	if (arr[0] != NULL)
-	{
-		free (words->word);
-		words->word = arr[0];
-	}
-	words->pipe = 0;
-	i = 0;
-	while (arr[0] != NULL && arr[++i] != NULL)
-		words = new_word(words, arr[i], data);
-	words->next = next;
-	if (i > 0)
-		*j = ft_strlen_int(arr[i - 1]) - pos;
-	return (free (arr), words);
 }
 
 //sostituisce la variabile che gli viene indicata tramite l'indice

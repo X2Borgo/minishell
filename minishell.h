@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alborghi <alborghi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fde-sant <fde-sant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 18:07:37 by alborghi          #+#    #+#             */
-/*   Updated: 2025/03/21 16:19:34 by alborghi         ###   ########.fr       */
+/*   Updated: 2025/03/21 17:39:30 by fde-sant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,12 +180,18 @@ t_int_list				*remove_node(t_int_list *list);
 void					free_int_list(t_int_list *list);
 void					close_fds(t_int_list *fds);
 
+//==========================================================
 // char_manager.c 4
 
 int						quote_checker(char *line, int i);
+int						quote_checker2(char *line, int i);
 char					*dup_till_n(char *start, int n, t_data *data);
 char					*remove_char(char *word, int i, t_data *data);
 void					set_cmd(t_cmd *cmds, t_words **words);
+//==========================================================
+// dollar_multiarg.c 
+
+t_words					*multi_args_case(t_data *data, t_words *words, int *j);
 //==========================================================
 // dollar_stupid.c 4
 
@@ -196,10 +202,9 @@ char					*dollar_converter_stupid(char *word, int *i,
 							t_data *data);
 char					*dollar_manager_stupid(char *word, t_data *data);
 //==========================================================
-// dollar.c 5
+// dollar.c 4
 
 char					*copy_in_str(char *word, int *i, int j, t_data *data);
-t_words					*multi_args_case(t_data *data, t_words *words, int *j);
 t_words					*dollar_converter(char *word, int *i, t_data *data,
 							t_words *words);
 char					*dollar_remover(char *word, int *i, int check,
@@ -274,12 +279,16 @@ t_cmd					*new_command(t_cmd *cmds, t_words **words, t_data *data,
 							t_words **h);
 t_cmd					*parsing(char *line, t_data *data);
 //==========================================================
-// print.c 3
+// print.c 4
 
 void					print_word(t_words *words);
 void					print_i_delimiter(t_cmd *cmds);
 void					print_cmd(t_cmd *cmds);
 void					print_data(t_data *data);
+//==========================================================
+// quote_split.c 1
+
+char					**quote_split(char const *s, char c);
 //==========================================================
 // word.c 4
 

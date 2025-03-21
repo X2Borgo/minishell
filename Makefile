@@ -22,6 +22,7 @@ do_heredoc.c \
 save_heredoc.c \
 int_list.c \
 parsing/char_manager.c \
+parsing/dollar_multiarg.c \
 parsing/dollar_stupid.c \
 parsing/dollar.c \
 parsing/error_support.c \
@@ -33,6 +34,7 @@ parsing/inout_support.c \
 parsing/inout.c \
 parsing/parsing.c \
 parsing/print.c \
+parsing/quote_split.c \
 parsing/word.c
 
 CFLAGS = -Wall -Wextra -Werror -g
