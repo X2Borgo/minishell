@@ -6,26 +6,25 @@
 /*   By: alborghi <alborghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 15:29:44 by alborghi          #+#    #+#             */
-/*   Updated: 2025/03/21 16:01:29 by alborghi         ###   ########.fr       */
+/*   Updated: 2025/03/21 16:28:05 by alborghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	init_env_cycle(t_env *tmp, char **env, t_env *my_env, int *i)
+int	init_env_cycle(t_env **tmp, char **env, int i)
 {
-	tmp->var = ft_strdup(env[*i]);
-	if (!tmp->var)
-		return (free_env(my_env), 1);
-	tmp->is_env = TRUE;
-	if (env[*i + 1])
+	(*tmp)->var = ft_strdup(env[i]);
+	if (!(*tmp)->var)
+		return (1);
+	(*tmp)->is_env = TRUE;
+	if (env[i + 1])
 	{
-		tmp->next = (t_env *)ft_calloc(1, sizeof(t_env));
-		if (!tmp->next)
-			return (free_env(my_env), 1);
-		tmp = tmp->next;
+		(*tmp)->next = (t_env *)ft_calloc(1, sizeof(t_env));
+		if (!(*tmp)->next)
+			return (1);
+		(*tmp) = (*tmp)->next;
 	}
-	(*i)++;
 	return (0);
 }
 
@@ -44,8 +43,9 @@ t_env	*init_env(char **env)
 	tmp = my_env;
 	while (env[i])
 	{
-		if (init_env_cycle(tmp, env, my_env, &i))
-			return (NULL);
+		if (init_env_cycle(&tmp, env, i) == 1)
+			return (free_env(my_env), NULL);
+		i++;
 	}
 	tmp->next = NULL;
 	return (my_env);
