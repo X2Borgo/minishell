@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alborghi <alborghi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fde-sant <fde-sant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 18:06:42 by alborghi          #+#    #+#             */
-/*   Updated: 2025/03/21 14:58:23 by alborghi         ###   ########.fr       */
+/*   Updated: 2025/03/21 19:05:17 by fde-sant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	ft_readline(t_data *data)
 	write_history(data->history);
 	free(history);
 	data->cmds = parsing(line, data);
+	ft_printf("##########%d\n", data->cmds->out_error);
 	free(line);
 }
 

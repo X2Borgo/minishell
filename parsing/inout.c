@@ -6,7 +6,7 @@
 /*   By: fde-sant <fde-sant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 20:21:59 by fre007            #+#    #+#             */
-/*   Updated: 2025/03/21 16:15:24 by fde-sant         ###   ########.fr       */
+/*   Updated: 2025/03/21 19:21:08 by fde-sant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,30 +72,14 @@ char	*findable_file(t_words *words, int witch)
 // apre e chiude un file che non viene utilizzato
 void	open_useless_file(t_cmd *cmds, int witch)
 {
-	int	fd;
-
 	if (witch == 1)
 		cmds->file_a = NULL;
 	else if (witch == 2)
-		cmds->file_i = NULL;
-	if (cmds->file_o != NULL)
-	{
-		fd = open(cmds->file_o, O_CREAT, 0644);
-		if (fd == -1)
-			return ;
-		free (cmds->file_o);
 		cmds->file_o = NULL;
-		close(fd);
-	}
+	if (cmds->file_o != NULL)
+		open_file_sup(cmds->file_o, cmds);
 	else if (cmds->file_a != NULL)
-	{
-		fd = open(cmds->file_a, O_CREAT, 0644);
-		if (fd == -1)
-			return ;
-		free (cmds->file_a);
-		cmds->file_a = NULL;
-		close(fd);
-	}
+		open_file_sup(cmds->file_a, cmds);
 }
 
 //gestisce la sovrascittura di nuovi nomi file
@@ -140,7 +124,7 @@ t_words	*inout_manager(t_words *words, t_data *data, t_cmd *cmds, t_words **h)
 	find = findable_file(words, 1);
 	tmp_h = *h;
 	witch = head_protector(words, &tmp_h, find);
-	while (!data->status && find != NULL)
+	while (check_out_error(cmds) && !data->status && find != NULL)
 	{
 		data->find = find;
 		check_file(find, &words, cmds, data);

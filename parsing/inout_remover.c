@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   inout_remover.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fre007 <fre007@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fde-sant <fde-sant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 09:53:37 by fre007            #+#    #+#             */
-/*   Updated: 2025/03/17 17:43:05 by fre007           ###   ########.fr       */
+/*   Updated: 2025/03/21 19:24:18 by fde-sant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
+//rimuove due nodi, l'attuale ed il sucecssivo
 char	*clear_2_node(t_words **tmp, t_words **first, t_data *data)
 {
 	char	*ret;
@@ -33,6 +34,7 @@ char	*clear_2_node(t_words **tmp, t_words **first, t_data *data)
 	return (dollar_manager_stupid(ret, data));
 }
 
+//rimuove il nodo subito successivoinsieme ad una parte della stringa
 char	*clear_next_node(t_words **tmp, char *finded, t_words **first,
 							t_data *data)
 {
@@ -50,6 +52,7 @@ char	*clear_next_node(t_words **tmp, char *finded, t_words **first,
 	return (dollar_manager_stupid(ret, data));
 }
 
+//rimuove un nodo e riccolega la lista
 char	*clear_this_node(t_words **tmp, char *finded, t_words **first,
 							t_data *data)
 {
@@ -68,6 +71,7 @@ char	*clear_this_node(t_words **tmp, char *finded, t_words **first,
 	return (dollar_manager_stupid(ret, data));
 }
 
+//rimuove l'ultima parte di una stringa
 char	*remove_last_part(t_words **tmp, char *finded, char *find, t_data *data)
 {
 	char	*ret;
@@ -79,4 +83,20 @@ char	*remove_last_part(t_words **tmp, char *finded, char *find, t_data *data)
 	if (!ft_strncmp("<<", data->find, 3))
 		return (ret);
 	return (dollar_manager_stupid(ret, data));
+}
+
+//supporto per la funzione open useless file
+void	open_file_sup(char *s, t_cmd *cmds)
+{
+	int	fd;
+
+	if (!cmds->out_error)
+	{
+		fd = open(s, O_CREAT, 0644);
+		if (fd == -1)
+			return ;
+		close(fd);
+	}
+	free (s);
+	s = NULL;
 }

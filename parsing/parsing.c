@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alborghi <alborghi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fde-sant <fde-sant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 09:57:09 by fre007            #+#    #+#             */
-/*   Updated: 2025/03/21 11:16:48 by alborghi         ###   ########.fr       */
+/*   Updated: 2025/03/21 18:56:17 by fde-sant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ t_cmd	*calloc_cmds(t_data *data)
 	cmds->cmd = NULL;
 	cmds->here_file = NULL;
 	cmds->next = NULL;
+	cmds->out_error = 0;
 	return (cmds);
 }
 

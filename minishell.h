@@ -6,7 +6,7 @@
 /*   By: fde-sant <fde-sant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 18:07:37 by alborghi          #+#    #+#             */
-/*   Updated: 2025/03/21 17:39:30 by fde-sant         ###   ########.fr       */
+/*   Updated: 2025/03/21 19:20:51 by fde-sant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ typedef struct s_cmd
 	char				*file_o;	// trunck (out)
 	char				*file_a;	// append (out)
 	int					doi;		// controll last readed input file (0 1 2)
+	int					out_error;
 	char				*here_file;
 	struct s_cmd		*next;
 }						t_cmd;
@@ -250,6 +251,7 @@ char					*clear_this_node(t_words **tmp, char *finded,
 							t_words **first, t_data *data);
 char					*remove_last_part(t_words **tmp, char *finded,
 							char *find, t_data *data);
+void					open_file_sup(char *s, t_cmd *cmds);
 //==========================================================
 // inout_support.c 3
 
@@ -257,6 +259,7 @@ char					*ft_strstr(char *big, char *little);
 t_words					*remove_node_words(t_words *words, t_words *first);
 char					*remove_finded(char *word, char *finded, t_data *data);
 int						head_protector(t_words *words, t_words **h, char *find);
+int						check_out_error(t_cmd *cmds);
 //==========================================================
 // inout.c 5
 
@@ -297,4 +300,5 @@ char					*next_word(char *line, int *i, t_data *data);
 t_words					*new_word(t_words *words, char *str, t_data *data);
 t_words					*word_slicer(char *line, t_data *data);
 //==========================================================
+
 #endif
