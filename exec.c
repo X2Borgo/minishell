@@ -6,7 +6,7 @@
 /*   By: alborghi <alborghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 09:33:19 by alborghi          #+#    #+#             */
-/*   Updated: 2025/03/22 10:26:47 by alborghi         ###   ########.fr       */
+/*   Updated: 2025/03/22 13:06:23 by alborghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,9 @@ int	handle_files(t_cmd *cmd, t_data *data)
 	{
 		if (read_heredoc(cmd->here_file) == 1)
 			return (-1);
+		if (g_signal == 2)
+			return (g_signal = 0, data->out = 130, -1);
 	}
-	if (g_signal == 2)
-		return (g_signal = 0, data->out = 130, -1);
 	if (cmd->file_i)
 	{
 		if (open_last(cmd->file_i, cmd->doi) == -1)

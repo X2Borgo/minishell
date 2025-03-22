@@ -6,7 +6,7 @@
 /*   By: alborghi <alborghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 15:33:18 by alborghi          #+#    #+#             */
-/*   Updated: 2025/03/22 10:21:54 by alborghi         ###   ########.fr       */
+/*   Updated: 2025/03/22 13:26:21 by alborghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,8 @@ int	save_cycle(t_cmd *cmd, int *i, int *j, int fd)
 	char	*line;
 
 	line = readline("> ");
-	if (g_signal == 2)
-	{
-		close(fd);
-		return (130);
-	}
+	if (g_signal != 0)
+		return (g_signal + 128);
 	if (continue_checks(line, cmd, i, j))
 		return (0);
 	line = ft_strtrim_free(line, "\n");
@@ -68,8 +65,8 @@ int	save_heredoc(t_cmd *cmd, int n)
 	j = 1;
 	while (cmd->delimiter[i])
 	{
-		if (save_cycle(cmd, &i, &j, fd) == 130)
-			return (130);
+		if (save_cycle(cmd, &i, &j, fd) != 0)
+			return (g_signal + 128);
 	}
 	close(fd);
 	return (0);

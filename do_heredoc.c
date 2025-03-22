@@ -6,7 +6,7 @@
 /*   By: alborghi <alborghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 09:51:57 by alborghi          #+#    #+#             */
-/*   Updated: 2025/03/22 10:21:47 by alborghi         ###   ########.fr       */
+/*   Updated: 2025/03/22 13:29:44 by alborghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ int	skip_heredoc(t_cmd *cmd)
 	return (0);
 }
 
+//TODO: do this but in a fork
 int	do_heredoc(t_data *data)
 {
 	int		i;
@@ -78,8 +79,8 @@ int	do_heredoc(t_data *data)
 		{
 			if (skip_heredoc(tmp) == 1)
 				return (1);
-			if (save_heredoc(tmp, i++) == 1)
-				return (1);
+			if (save_heredoc(tmp, i++) != 0)
+				return (g_signal + 128);
 		}
 		else
 			tmp->here_file = NULL;

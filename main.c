@@ -6,7 +6,7 @@
 /*   By: alborghi <alborghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 18:06:42 by alborghi          #+#    #+#             */
-/*   Updated: 2025/03/22 10:14:59 by alborghi         ###   ########.fr       */
+/*   Updated: 2025/03/22 13:29:30 by alborghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,11 @@ void	ft_readline(t_data *data)
 	char	*history;
 
 	line = readline(MINI);
+	if (g_signal != 0)
+	{
+		data->out = g_signal + 128;
+		g_signal = 0;
+	}
 	if (line == NULL)
 	{
 		ft_printf("exit\n");
@@ -92,10 +97,13 @@ int	main(int ac, char **av, char **env)
 		ft_readline(&data);
 		if (parsing_checks(&data) == 1)
 			continue ;
-		do_heredoc(&data);
+		if (do_heredoc(&data) != 0)
+		{
+			//TODO: free everything
+			continue ;
+		}
 		data.head = data.cmds;
 		exec_cmd(&data);
-		ft_waitpids(&data);
 		reset_and_free(&data);
 	}
 	ft_exit(&data, data.out);

@@ -48,6 +48,14 @@ $(NAME): $(SRCS)
 	if [ ! -d tmp ]; then mkdir tmp; fi
 	$(CC) $(CFLAGS) -o $(NAME) $(SRCS) $(LIBFTA) -lreadline
 
+val: all
+	clear
+	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --suppressions=readline.supp --track-fds=yes ./$(NAME)
+
+vall: all
+	clear
+	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --suppressions=readline.supp ./$(NAME)
+
 clean: libft_clean
 
 fclean: clean libft_fclean
@@ -66,34 +74,3 @@ libft_fclean: libft_clean
 run: all
 	clear
 	./$(NAME)
-
-val: all
-	clear
-	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --suppressions=readline.supp --track-fds=yes ./$(NAME)
-
-vall: all
-	clear
-	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --suppressions=readline.supp ./$(NAME)
-
-TEST = \
-init.c \
-signal.c \
-exec.c \
-export.c \
-cd.c \
-echo.c \
-unset.c \
-execve.c \
-parsing/parsing.c \
-parsing/char_manager.c \
-parsing/dollar.c \
-parsing/print.c \
-parsing/word.c \
-parsing/exit.c \
-test.c \
-
-test: test_clean
-	cc $(CFLAGS) -o test $(TEST) $(LIBFTA) -lreadline
-
-test_clean:
-	rm -f test
