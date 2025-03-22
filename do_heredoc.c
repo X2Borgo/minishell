@@ -6,7 +6,7 @@
 /*   By: alborghi <alborghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 09:51:57 by alborghi          #+#    #+#             */
-/*   Updated: 2025/03/21 15:43:04 by alborghi         ###   ########.fr       */
+/*   Updated: 2025/03/22 10:21:47 by alborghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	skip_heredoc(t_cmd *cmd)
 	{
 		line = readline("> ");
 		if (skip_continue(line, cmd, &i, &j) == 1)
-			return (1);
+			continue ;
 		free(line);
 		j++;
 	}
