@@ -6,7 +6,7 @@
 /*   By: alborghi <alborghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 09:33:19 by alborghi          #+#    #+#             */
-/*   Updated: 2025/03/22 09:28:39 by alborghi         ###   ########.fr       */
+/*   Updated: 2025/03/22 09:34:04 by alborghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	handle_files(t_cmd *cmd, t_data *data)
 int	call_function(t_data *data)
 {
 	if (data->cmds->out_error == 1)
-		return (data->out = 1, 0);
+		return (data->out = 1, perror("minishell"), -1);
 	if (handle_files(data->cmds, data) == -1)
 		return (-1);
 	if (!data->cmds->cmd)
