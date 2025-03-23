@@ -6,7 +6,7 @@
 /*   By: fde-sant <fde-sant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 18:06:42 by alborghi          #+#    #+#             */
-/*   Updated: 2025/03/21 19:05:17 by fde-sant         ###   ########.fr       */
+/*   Updated: 2025/03/23 09:24:35 by fde-sant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void	ft_readline(t_data *data)
 	write_history(data->history);
 	free(history);
 	data->cmds = parsing(line, data);
-	ft_printf("##########%d\n", data->cmds->out_error);
 	free(line);
 }
 
@@ -73,6 +72,17 @@ void	reset_and_free(t_data *data)
 	data->cmds = NULL;
 }
 
+int	heredoc_check(t_data *data)
+{
+	if (do_heredoc(data) == 130)
+	{
+		reset_and_free(data);
+		data->out = 130;
+		return (1);
+	}
+	return (0);
+}
+
 // ctrl + d -> EOF (get_next_line returns NULL) -> exit
 int	main(int ac, char **av, char **env)
 {
@@ -93,8 +103,9 @@ int	main(int ac, char **av, char **env)
 		ft_readline(&data);
 		if (parsing_checks(&data) == 1)
 			continue ;
-		do_heredoc(&data);
 		data.head = data.cmds;
+		if (heredoc_check(&data))
+			continue ;
 		exec_cmd(&data);
 		ft_waitpids(&data);
 		reset_and_free(&data);

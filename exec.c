@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alborghi <alborghi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fde-sant <fde-sant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 09:33:19 by alborghi          #+#    #+#             */
-/*   Updated: 2025/03/21 16:02:16 by alborghi         ###   ########.fr       */
+/*   Updated: 2025/03/22 12:12:58 by fde-sant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,9 @@ int	handle_files(t_cmd *cmd, t_data *data)
 	{
 		if (read_heredoc(cmd->here_file) == 1)
 			return (-1);
+		if (g_signal == 2)
+			return (g_signal = 0, data->out = 130, -1);
 	}
-	if (g_signal == 2)
-		return (g_signal = 0, data->out = 130, -1);
 	if (cmd->file_i)
 	{
 		if (open_last(cmd->file_i, cmd->doi) == -1)
@@ -83,6 +83,9 @@ int	handle_files(t_cmd *cmd, t_data *data)
 //TODO: do check on data->status and if value is -1 exit program with status 1
 int	call_function(t_data *data)
 {
+	if (data->cmds->out_error == 1)
+		return (data->out = 1,
+			ft_printe("minishell: : No such file or directory\n"), 0);
 	if (handle_files(data->cmds, data) == -1)
 		return (-1);
 	if (!data->cmds->cmd)

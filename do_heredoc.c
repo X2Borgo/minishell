@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   do_heredoc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alborghi <alborghi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fde-sant <fde-sant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 09:51:57 by alborghi          #+#    #+#             */
-/*   Updated: 2025/03/21 15:43:04 by alborghi         ###   ########.fr       */
+/*   Updated: 2025/03/23 09:23:48 by fde-sant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,10 @@ int	skip_heredoc(t_cmd *cmd)
 	while (cmd->delimiter[i + 1])
 	{
 		line = readline("> ");
+		if (g_signal == SIGINT)
+			return (130);
 		if (skip_continue(line, cmd, &i, &j) == 1)
-			return (1);
+			continue ;
 		free(line);
 		j++;
 	}
@@ -72,19 +74,21 @@ int	do_heredoc(t_data *data)
 
 	i = 0;
 	tmp = data->cmds;
+	signal(SIGINT, sig_here);
 	while (tmp)
 	{
 		if (tmp->delimiter && tmp->delimiter[0])
 		{
-			if (skip_heredoc(tmp) == 1)
-				return (1);
-			if (save_heredoc(tmp, i++) == 1)
-				return (1);
+			if (skip_heredoc(tmp) != 0)
+				return (130);
+			if (save_heredoc(tmp, i++) != 0)
+				return (130);
 		}
 		else
 			tmp->here_file = NULL;
 		tmp = tmp->next;
 	}
+	signal(SIGINT, new_prompt);
 	return (0);
 }
 
