@@ -6,7 +6,7 @@
 /*   By: fde-sant <fde-sant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 21:34:49 by fre007            #+#    #+#             */
-/*   Updated: 2025/03/21 16:14:19 by fde-sant         ###   ########.fr       */
+/*   Updated: 2025/03/23 10:08:54 by fde-sant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,10 @@ void	find_heredoc_only(char *line, t_data *data, char *limit)
 	}
 	handle_delimiter(arr, 2, data);
 	ft_free_mat_char(arr);
+}
+
+void	set_data_out(t_data *data)
+{
+	if (data->out != data->status && data->status != 0)
+		data->out = data->status;
 }

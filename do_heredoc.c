@@ -6,7 +6,7 @@
 /*   By: fde-sant <fde-sant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 09:51:57 by alborghi          #+#    #+#             */
-/*   Updated: 2025/03/23 09:23:48 by fde-sant         ###   ########.fr       */
+/*   Updated: 2025/03/23 10:01:57 by fde-sant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	skip_heredoc(t_cmd *cmd)
 	{
 		line = readline("> ");
 		if (g_signal == SIGINT)
-			return (130);
+			return (free(line), 130);
 		if (skip_continue(line, cmd, &i, &j) == 1)
 			continue ;
 		free(line);
@@ -67,6 +67,7 @@ int	skip_heredoc(t_cmd *cmd)
 	return (0);
 }
 
+//TODO: do this but in a fork
 int	do_heredoc(t_data *data)
 {
 	int		i;
@@ -79,10 +80,10 @@ int	do_heredoc(t_data *data)
 	{
 		if (tmp->delimiter && tmp->delimiter[0])
 		{
-			if (skip_heredoc(tmp) != 0)
+			if (skip_heredoc(tmp) == 130)
 				return (130);
 			if (save_heredoc(tmp, i++) != 0)
-				return (130);
+				return (g_signal + 128);
 		}
 		else
 			tmp->here_file = NULL;

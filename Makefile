@@ -48,6 +48,14 @@ $(NAME): $(SRCS)
 	if [ ! -d tmp ]; then mkdir tmp; fi
 	$(CC) $(CFLAGS) -o $(NAME) $(SRCS) $(LIBFTA) -lreadline
 
+val: all
+	clear
+	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --suppressions=readline.supp --track-fds=yes ./$(NAME)
+
+vall: all
+	clear
+	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --suppressions=readline.supp ./$(NAME)
+
 clean: libft_clean
 
 fclean: clean libft_fclean

@@ -6,7 +6,7 @@
 /*   By: fde-sant <fde-sant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 16:57:28 by fre007            #+#    #+#             */
-/*   Updated: 2025/03/21 16:30:25 by fde-sant         ###   ########.fr       */
+/*   Updated: 2025/03/23 10:09:04 by fde-sant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ int	check_syntax_error(char *line, t_data *data)
 		if (data->status == 2)
 			return (1);
 	}
-	data->out = data->status;
+	if (data->status != 0)
+		data->out = data->status;
 	return (quote_checker("1", 1), 0);
 }

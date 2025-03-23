@@ -6,7 +6,7 @@
 /*   By: fde-sant <fde-sant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 18:06:42 by alborghi          #+#    #+#             */
-/*   Updated: 2025/03/23 09:24:35 by fde-sant         ###   ########.fr       */
+/*   Updated: 2025/03/23 10:08:12 by fde-sant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,11 @@ void	ft_readline(t_data *data)
 	char	*history;
 
 	line = readline(MINI);
+	if (g_signal != 0)
+	{
+		data->out = g_signal + 128;
+		g_signal = 0;
+	}
 	if (line == NULL)
 	{
 		ft_printf("exit\n");
@@ -31,6 +36,7 @@ void	ft_readline(t_data *data)
 	free(history);
 	data->cmds = parsing(line, data);
 	free(line);
+	set_data_out(data);
 }
 
 void	ft_waitpids(t_data *data)
@@ -107,8 +113,8 @@ int	main(int ac, char **av, char **env)
 		if (heredoc_check(&data))
 			continue ;
 		exec_cmd(&data);
-		ft_waitpids(&data);
 		reset_and_free(&data);
+		set_data_out(&data);
 	}
 	ft_exit(&data, data.out);
 }
