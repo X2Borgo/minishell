@@ -74,6 +74,3 @@ libft_fclean: libft_clean
 run: all
 	clear
 	./$(NAME)
-
-vall: all
-	clear && valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all --track-origins=yes --log-file=valgrind_output.txt ./minishell
