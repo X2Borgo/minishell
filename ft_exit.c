@@ -6,7 +6,7 @@
 /*   By: alborghi <alborghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 10:36:02 by alborghi          #+#    #+#             */
-/*   Updated: 2025/03/21 10:33:48 by alborghi         ###   ########.fr       */
+/*   Updated: 2025/03/24 08:58:33 by alborghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,8 @@ int	get_signal(int *sig, char **args, t_data *data)
 		return (*sig = 0, 0);
 	if (!is_numeric(args[0]))
 	{
-		data->status = 2;
+		*sig = 2;
+		data->status = *sig;
 		ft_printe("minishell: exit: %s: numeric argument required\n", args[0]);
 		return (0);
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fde-sant <fde-sant@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alborghi <alborghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 09:33:19 by alborghi          #+#    #+#             */
-/*   Updated: 2025/03/23 09:56:29 by fde-sant         ###   ########.fr       */
+/*   Updated: 2025/03/24 08:48:50 by alborghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int	call_function(t_data *data)
 			ft_printe("minishell: : No such file or directory\n"), 0);
 	if (handle_files(data->cmds, data) == -1)
 		return (-1);
-	if (!data->cmds->cmd)
+	if (!data->cmds->cmd || !data->cmds->cmd[0])
 		return (0);
 	if (ft_strncmp(data->cmds->cmd, "echo", 5) == 0)
 		data->out = exec_echo(data->cmds->args);

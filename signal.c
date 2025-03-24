@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fde-sant <fde-sant@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alborghi <alborghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 10:57:05 by alborghi          #+#    #+#             */
-/*   Updated: 2025/03/24 08:17:49 by fde-sant         ###   ########.fr       */
+/*   Updated: 2025/03/24 08:38:54 by alborghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	sig_ignore(int signum)
 void	init_signals(void)
 {
 	signal(SIGINT, new_prompt);
-	signal(SIGQUIT, sig_ignore);
+	signal(SIGQUIT, SIG_IGN);
 }
 
 void	new_prompt(int signum)
