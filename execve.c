@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execve.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fde-sant <fde-sant@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alborghi <alborghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 17:23:19 by alborghi          #+#    #+#             */
-/*   Updated: 2025/03/24 08:22:41 by fde-sant         ###   ########.fr       */
+/*   Updated: 2025/03/24 09:08:05 by alborghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	execve_child(t_data *data, char *path, char **argv, char **env)
 	perror("");
 	ft_printe("\n");
 	free_execve(path, argv, env);
-	ft_exit(data, 1);
+	ft_exit(data, 127);
 }
 
 // + 128 to get the signal number
@@ -68,10 +68,12 @@ int	absoulte_path(t_data *data, char **argv, char **env)
 	exec = ft_strdup(data->cmds->cmd);
 	if (!exec)
 		return (ft_printe("minishell: %s: malloc error\n", exec),
-			free_execve(exec, argv, env), 1);
+			free_execve(exec, argv, env), 127);
+	if (check_is_folder(exec) == 1)
+		return (free_execve(exec, argv, env), 126);
 	if (access(exec, F_OK | X_OK) != 0)
 		return (ft_printe("minishell: %s: ", exec), perror(""),
-			free_execve(exec, argv, env), 1);
+			free_execve(exec, argv, env), 127);
 	return (execute_command(exec, argv, env, data));
 }
 
@@ -94,5 +96,7 @@ int	exec_execve(t_data *data)
 	if (!exec)
 		return (ft_printe("%s: command not found\n", data->cmds->cmd),
 			free_execve(exec, argv, env), 127);
+	if (check_is_folder(exec) == 1)
+		return (free_execve(exec, argv, env), 126);
 	return (execute_command(exec, argv, env, data));
 }
