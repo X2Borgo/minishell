@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   save_heredoc.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fde-sant <fde-sant@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alborghi <alborghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 15:33:18 by alborghi          #+#    #+#             */
-/*   Updated: 2025/03/23 10:01:38 by fde-sant         ###   ########.fr       */
+/*   Updated: 2025/03/24 09:41:33 by alborghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ int	continue_checks(char *line, t_cmd *cmd, int *i, int *j)
 {
 	if (!line)
 	{
-		ft_printe("minishell: warning: here-document at line %d delimited\
-			by end-of-file (wanted `%s')\n", j, cmd->delimiter[*i]);
+		ft_printe("minishell: warning: here-document at line %d delimited \
+by end-of-file (wanted `%s')\n", *j, cmd->delimiter[*i]);
 		*j = 1;
 		(*i)++;
 		return (1);

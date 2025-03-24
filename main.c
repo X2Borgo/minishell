@@ -6,7 +6,7 @@
 /*   By: alborghi <alborghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 18:06:42 by alborghi          #+#    #+#             */
-/*   Updated: 2025/03/24 08:46:57 by alborghi         ###   ########.fr       */
+/*   Updated: 2025/03/24 09:44:27 by alborghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void	ft_waitpids(t_data *data)
 
 void	reset_and_free(t_data *data)
 {
+	ft_waitpids(data);
 	init_signals();
 	reset_std(data);
 	free_cmds(data->head);
@@ -113,7 +114,6 @@ int	main(int ac, char **av, char **env)
 		if (heredoc_check(&data))
 			continue ;
 		exec_cmd(&data);
-		ft_waitpids(&data);
 		reset_and_free(&data);
 		set_data_out(&data);
 	}
