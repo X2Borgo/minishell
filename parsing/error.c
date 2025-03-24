@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alborghi <alborghi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fde-sant <fde-sant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 16:57:28 by fre007            #+#    #+#             */
-/*   Updated: 2025/03/22 13:20:28 by alborghi         ###   ########.fr       */
+/*   Updated: 2025/03/23 10:09:04 by fde-sant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,6 @@ int	check_syntax_error(char *line, t_data *data)
 		if (data->status == 2)
 			return (1);
 	}
-	//TODO: controlla se questo if ti sfancula tutto o no, senza questo non funziona echo $?
 	if (data->status != 0)
 		data->out = data->status;
 	return (quote_checker("1", 1), 0);

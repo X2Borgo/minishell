@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alborghi <alborghi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fde-sant <fde-sant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 18:06:42 by alborghi          #+#    #+#             */
-/*   Updated: 2025/03/22 13:29:30 by alborghi         ###   ########.fr       */
+/*   Updated: 2025/03/24 08:20:26 by fde-sant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	ft_readline(t_data *data)
 	free(history);
 	data->cmds = parsing(line, data);
 	free(line);
+	set_data_out(data);
 }
 
 void	ft_waitpids(t_data *data)
@@ -77,6 +78,17 @@ void	reset_and_free(t_data *data)
 	data->cmds = NULL;
 }
 
+int	heredoc_check(t_data *data)
+{
+	if (do_heredoc(data) == 130)
+	{
+		reset_and_free(data);
+		data->out = 130;
+		return (1);
+	}
+	return (0);
+}
+
 // ctrl + d -> EOF (get_next_line returns NULL) -> exit
 int	main(int ac, char **av, char **env)
 {
@@ -97,14 +109,12 @@ int	main(int ac, char **av, char **env)
 		ft_readline(&data);
 		if (parsing_checks(&data) == 1)
 			continue ;
-		if (do_heredoc(&data) != 0)
-		{
-			//TODO: free everything
-			continue ;
-		}
 		data.head = data.cmds;
+		if (heredoc_check(&data))
+			continue ;
 		exec_cmd(&data);
 		reset_and_free(&data);
+		set_data_out(&data);
 	}
 	ft_exit(&data, data.out);
 }

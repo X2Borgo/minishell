@@ -6,7 +6,7 @@
 /*   By: fde-sant <fde-sant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 18:07:37 by alborghi          #+#    #+#             */
-/*   Updated: 2025/03/21 19:20:51 by fde-sant         ###   ########.fr       */
+/*   Updated: 2025/03/23 10:06:33 by fde-sant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,6 @@ typedef struct s_data
 	int					stdi;
 	int					out;
 }						t_data;
-
-// main.c
 
 // main_checks.c
 int						check_is_folder(char *file);
@@ -217,6 +215,7 @@ t_words					*dollar_manager(t_data *data, t_words *words);
 char					*find_next_heredoc(char *line, t_data *data);
 void					find_heredoc_only(char *line, t_data *data,
 							char *limit);
+void					set_data_out(t_data *data);
 //==========================================================
 // error.c 5
 

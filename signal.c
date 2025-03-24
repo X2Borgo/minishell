@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alborghi <alborghi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fde-sant <fde-sant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 10:57:05 by alborghi          #+#    #+#             */
-/*   Updated: 2025/03/19 17:02:39 by alborghi         ###   ########.fr       */
+/*   Updated: 2025/03/24 08:17:49 by fde-sant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ void	sig_quit(int signum)
 void	sig_here(int signum)
 {
 	g_signal = signum;
+	printf("\n");
+	close(0);
 }
 
 void	sig_ignore(int signum)
@@ -33,7 +35,7 @@ void	sig_ignore(int signum)
 
 void	init_signals(void)
 {
-	signal(SIGC, new_prompt);
+	signal(SIGINT, new_prompt);
 	signal(SIGQUIT, sig_ignore);
 }
 

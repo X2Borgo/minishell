@@ -5,8 +5,8 @@
 minishell
 .vscode/
 test*
+tmp/
 
 !.gitignore
 !appunti.txt
 !.history
-!tmp/.heredoc_0
